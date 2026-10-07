@@ -17,7 +17,7 @@ const uri = 'ui://gpt-image-markup/viewer.html';
 const text = value => ({ type: 'text', text: JSON.stringify(value) });
 const result = value => ({ content: [text(value)], structuredContent: value });
 function createServer() {
-  const server = new McpServer({ name: 'gpt-image-markup', version: '0.1.2' });
+  const server = new McpServer({ name: 'gpt-image-markup', version: '0.1.3' });
   new OpenAIExtensions(server);
   registerAppResource(server, 'Image markup', uri, {}, async () => ({ contents: [{ uri,
     mimeType: RESOURCE_MIME_TYPE, text: await readFile(resolve(directory, 'dist/viewer.html'), 'utf8'),

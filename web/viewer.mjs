@@ -10,7 +10,7 @@ let comparisonSource = null;
 let strokes = [], color = 'yellow', mode = 'draw', scale = 1, x = 0, y = 0;
 let source = null, name = '', drawing = null, drag = null, space = false, busy = false;
 let requestId = crypto.randomUUID(), waiting = null, pollTimer = null, connected = false;
-const app = new App({ name:'gpt-image-markup', version:'0.1.2' });
+const app = new App({ name:'gpt-image-markup', version:'0.1.3' });
 const extensions = new OpenAIExtensions(app);
 const say = message => $('#status').textContent = message;
 $('#download').onclick = event => { if(!source)event.preventDefault(); };
@@ -93,10 +93,43 @@ async function fileData(file) {
   if (file.size>28_000_000) throw new Error('Use an image smaller than 28 MB.');
   return new Promise((resolve,reject)=>{ const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file); });
 }
+async function importFile(file) {
+  if(!file)return;
+  if(busy){say('Wait for the current edit to finish before replacing the image.');return;}
+  busy=true;controls();
+  try {
+    await load(await fileData(file),file.name);
+    drag=null;space=false;$('#handoff').hidden=true;setMode('draw');
+    say('Highlight the areas you want to change.');
+  } catch(e){say(e.message);} finally {busy=false;controls();}
+}
 $('#open').addEventListener('change',async event=>{
-  try { const file=event.target.files[0]; if(file) await load(await fileData(file),file.name);say('Highlight the areas you want to change.'); }
-  catch(e){say(e.message);}finally{event.target.value='';}
+  try { await importFile(event.target.files[0]); } finally {event.target.value='';}
 });
+// Handle file drops across the viewer, including SVG marks, without browser navigation.
+let fileDragDepth=0;
+const hasFiles = event => Array.from(event.dataTransfer?.types || []).includes('Files');
+document.addEventListener('dragenter',event=>{
+  if(!hasFiles(event))return;
+  event.preventDefault();fileDragDepth++;viewport.classList.add('file-drag');
+});
+document.addEventListener('dragover',event=>{
+  if(!hasFiles(event))return;
+  event.preventDefault();event.dataTransfer.dropEffect=busy?'none':'copy';
+});
+document.addEventListener('dragleave',event=>{
+  if(!hasFiles(event))return;
+  fileDragDepth=Math.max(0,fileDragDepth-1);
+  if(!fileDragDepth)viewport.classList.remove('file-drag');
+});
+document.addEventListener('drop',async event=>{
+  if(!hasFiles(event))return;
+  event.preventDefault();fileDragDepth=0;viewport.classList.remove('file-drag');
+  const files=Array.from(event.dataTransfer.files);
+  if(files.length!==1){say('Drop one PNG, JPEG, or WebP image at a time.');return;}
+  await importFile(files[0]);
+});
+window.addEventListener('dragend',()=>{fileDragDepth=0;viewport.classList.remove('file-drag');});
 for(const button of document.querySelectorAll('[data-color]'))button.onclick=()=>{
   color=button.dataset.color;for(const b of document.querySelectorAll('[data-color]'))b.setAttribute('aria-pressed',String(b===button));
 };

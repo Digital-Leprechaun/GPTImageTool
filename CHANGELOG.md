@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3 — 2026-10-07
+
+- Drop a PNG, JPEG, or WebP file onto the viewer to replace the current image and start a fresh markup pass.
+- Reject replacement during a pending edit to keep its result attached to the correct source.
+
 ## 0.1.2 — 2026-10-07
 
 - Rename the marketplace display label to AssetPack Games Tools.
