@@ -1,0 +1,16 @@
+GPT Image Markup — AssetPack Games Tools
+Copyright (c) 2026 Joseph M Wilcox.
+
+Original source code and the included Asset Pack Games logo are distributed
+under the MIT license in LICENSE. The logo was supplied from TripoForge.
+This license does not grant rights to use the Asset Pack Games name or logo
+to imply endorsement of a modified or unrelated product.
+
+Third-party npm dependencies remain under their respective licenses.
+The installer obtains them using package-lock.json; their license files
+are included in node_modules after installation. The bundled viewer includes
+code from @modelcontextprotocol/ext-apps, @openai/mcp-extensions,
+and their dependencies. Their full license texts are included in
+THIRD_PARTY_NOTICES.txt. Legal comments are preserved in the built viewer.
+
+This project is independent of OpenAI. Codex and ChatGPT are OpenAI products.

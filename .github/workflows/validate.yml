@@ -1,0 +1,20 @@
+# Copyright (c) 2026 Joseph M Wilcox. SPDX-License-Identifier: MIT
+name: Validate
+on: [push, pull_request]
+jobs:
+  validate:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm run configure
+      - run: node scripts/smoke.mjs

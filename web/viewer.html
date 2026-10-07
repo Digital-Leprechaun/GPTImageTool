@@ -1,0 +1,36 @@
+<!doctype html><!-- Copyright (c) 2026 Joseph M Wilcox. SPDX-License-Identifier: MIT -->
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Image markup</title><style>/* INLINE_STYLE */</style></head>
+<body>
+<main>
+  <header><div class="brand"><img class="brand-logo" src="LOGO_DATA_URI" alt="Asset Pack Games"><div><span class="eyebrow">GPT IMAGE TOOL</span><h1>Image markup</h1></div></div><div class="header-actions"><a id="download" class="button" aria-disabled="true" tabindex="-1">Download</a><label class="button">Open image<input id="open" type="file" accept="image/png,image/jpeg,image/webp" hidden></label></div></header>
+  <div class="toolbar" aria-label="Markup tools">
+    <button id="draw" aria-pressed="true">Highlight</button><button id="pan" aria-pressed="false">Pan</button>
+    <span class="separator"></span>
+    <div class="colors" aria-label="Highlight color">
+      <button data-color="yellow" aria-label="Yellow highlighter" aria-pressed="true" style="--swatch:#ffd34f"></button>
+      <button data-color="red" aria-label="Red highlighter" aria-pressed="false" style="--swatch:#ff5656"></button>
+      <button data-color="blue" aria-label="Blue highlighter" aria-pressed="false" style="--swatch:#479dff"></button>
+      <button data-color="green" aria-label="Green highlighter" aria-pressed="false" style="--swatch:#4cda80"></button>
+    </div>
+    <label class="brush">Brush <input id="brush" type="range" min="1" max="20" value="4"><output id="brush-value">4%</output></label>
+    <button id="undo">Undo</button><button id="clear">Clear</button>
+    <span class="spacer"></span><button id="minus" aria-label="Zoom out">−</button><output id="zoom">100%</output><button id="plus" aria-label="Zoom in">+</button><button id="fit">Fit</button><button id="actual">1:1</button>
+  </div>
+  <section id="viewport" tabindex="0" aria-label="Image canvas. Highlight to select areas; Pan or hold Space to move; wheel to zoom.">
+    <div id="stage"><img id="before-image" alt="Image before the last edit" draggable="false" hidden><img id="image" alt="Image to edit" draggable="false"><div id="comparison-divider" hidden></div><svg id="marks" xmlns="http://www.w3.org/2000/svg" aria-label="Highlighted edit regions"></svg></div>
+    <div id="empty"><span class="empty-icon">▧</span><h2>Make the next edit precise.</h2><p>Open an image, paint the areas to change,<br>and describe the edit below.</p><p class="hint">Zoom with the wheel · Hold Space to pan</p></div>
+  </section>
+  <div class="image-info"><span id="filename">No image open</span><span id="summary">Painted areas define the edit boundary.</span></div>
+  <div id="comparison" hidden>
+    <div class="comparison-labels"><span>Before last edit</span><output id="comparison-value">100% edited image</output><span>After edit</span></div>
+    <input id="comparison-slider" type="range" min="0" max="100" value="100" aria-label="Before and after comparison" aria-describedby="comparison-help">
+    <p id="comparison-help">Scrub to reveal the change. New highlights apply to the edited image.</p>
+  </div>
+  <footer><label for="prompt">What should change?</label><textarea id="prompt" rows="3" placeholder="Yellow: change the jacket to blue. Red: remove the sign."></textarea>
+    <div class="actions"><p id="status" role="status">Unhighlighted areas stay unchanged.</p><button id="submit" class="primary" disabled>Submit edits</button></div>
+    <div id="handoff" hidden><p>Request saved. In the local preview, copy this instruction into the image’s chat.</p><textarea id="handoff-text" readonly rows="4" aria-label="Instruction for the current chat"></textarea><button id="copy">Copy instruction</button></div>
+  </footer>
+</main>
+<script>/* INLINE_SCRIPT */</script>
+</body></html>

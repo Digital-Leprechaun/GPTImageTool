@@ -1,0 +1,29 @@
+{
+  "name": "gpt-image-markup",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node server.mjs",
+    "mcp": "node server.mjs --stdio",
+    "test": "node --test tests/*.test.mjs",
+    "configure": "node scripts/configure.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "1.7.5",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@openai/mcp-extensions": "0.1.0",
+    "express": "^5.1.0",
+    "sharp": "^0.35.5",
+    "zod": "^4.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "license": "MIT",
+  "author": "Joseph M Wilcox",
+  "engines": {
+    "node": ">=22"
+  }
+}

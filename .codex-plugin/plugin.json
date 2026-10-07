@@ -1,0 +1,11 @@
+{
+  "name": "gpt-image-markup",
+  "version": "0.1.2",
+  "description": "Zoom, highlight image regions, and send edits back to the current chat. Finished edits return to the viewer with unselected pixels preserved.",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "author": {
+    "name": "Joseph M Wilcox"
+  },
+  "license": "MIT"
+}
