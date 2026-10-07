@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4 — 2026-10-07
+
+- Include upgrade and rollback instructions that preserve image history and marketplace paths.
+- Prepare the GitHub repository and release archive.
+
 ## 0.1.3 — 2026-10-07
 
 - Drop a PNG, JPEG, or WebP file onto the viewer to replace the current image and start a fresh markup pass.

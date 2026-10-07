@@ -10,7 +10,7 @@ let comparisonSource = null;
 let strokes = [], color = 'yellow', mode = 'draw', scale = 1, x = 0, y = 0;
 let source = null, name = '', drawing = null, drag = null, space = false, busy = false;
 let requestId = crypto.randomUUID(), waiting = null, pollTimer = null, connected = false;
-const app = new App({ name:'gpt-image-markup', version:'0.1.3' });
+const app = new App({ name:'gpt-image-markup', version:'0.1.4' });
 const extensions = new OpenAIExtensions(app);
 const say = message => $('#status').textContent = message;
 $('#download').onclick = event => { if(!source)event.preventDefault(); };

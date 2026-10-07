@@ -8,6 +8,8 @@ Copyright (c) 2026 Joseph M Wilcox. Licensed under MIT. See LICENSE and THIRD_PA
 
 Extract the release ZIP and follow INSTALL.md. The installer needs Node.js 22+, npm, and the Codex CLI. It configures this computer's paths and installs the plugin under **AssetPack Games Tools**. Keep the extracted folder in place after installation.
 
+For an existing installation, follow [UPGRADE.md](UPGRADE.md) before replacing files. Keep your saved image workspace and reuse the installation folder.
+
 To create a friend-testing ZIP from source, run npm ci, npm run build, then powershell -NoProfile -File scripts/package.ps1. The archive and SHA-256 checksum are written to releases/. The ZIP includes source, built viewer, licenses, and installers; dependencies are downloaded during installation. It excludes image history, screenshots, secrets, and machine-specific configuration.
 
 Open an image → highlight yellow/red/blue/green regions → enter instructions → **Submit edits** → the same chat receives the source, marked reference, and instructions → the chat generates an edit and calls `finish_markup_edit` → the open viewer automatically loads the result for another pass.

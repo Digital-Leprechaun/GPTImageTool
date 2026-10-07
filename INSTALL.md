@@ -22,7 +22,7 @@ You can also drop one PNG, JPEG, or WebP file directly onto the open viewer. It 
 
 The local image workspace is `workspace/` in the extracted folder. Images outside it can be imported through Open image. The chat must save edit candidates inside this workspace and call `finish_markup_edit`; the included skill explains that workflow. If your chat does not have image editing available, it cannot produce the candidate.
 
-To update, extract a new release into its own permanent folder and run its installer. Do not move an installed folder without rerunning the installer. To remove this plugin, run `codex plugin remove gpt-image-markup@joe-image-tools`. You can then remove the extracted folder after saving any wanted images in `workspace/`.
+To update an existing installation, follow [UPGRADE.md](UPGRADE.md) to preserve your images and keep the catalog path valid. To remove this plugin, run `codex plugin remove gpt-image-markup@joe-image-tools`. You can then remove the extracted folder after saving any wanted images in `workspace/`.
 
 For feedback, include your OS, Codex version, the step that failed, and any error message. Never include private images or credentials unless you intend to share them.
 
