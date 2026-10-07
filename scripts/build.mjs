@@ -26,4 +26,4 @@ for (const [directory,pkg] of packages) {
   if(!files.length)throw new Error(`Missing bundled license: ${pkg.name}`);
   for(const file of files)notices += `${file}\n${await readFile(resolve(directory,file),'utf8')}\n\n`;
 }
-await writeFile('THIRD_PARTY_NOTICES.txt', notices);
+await writeFile('THIRD_PARTY_NOTICES.txt', `${notices.trimEnd()}\n`);
