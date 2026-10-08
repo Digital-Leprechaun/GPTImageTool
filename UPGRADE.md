@@ -26,4 +26,4 @@ The marketplace ID `joe-image-tools` may still point at the old folder. Preserve
 
 ## This release
 
-Version 0.1.4 includes image-file drag-and-drop replacement, the before/after scrub slider, Download, Asset Pack Games branding, and these upgrade instructions. File replacement is refused while an image edit is pending; drop the file again once the edit finishes.
+Version 0.1.5 adds filled polygon Fence selections and opens Image Markup in the sidebar by default. Click vertices, then click the first point to close a fence; Esc or Ctrl-Z cancels an unfinished fence. The sidebar viewer loads completed edits automatically, and reopening a saved result restores before/after comparison. Existing brush highlights, image-file drag-and-drop, Download, and image history remain supported. File replacement is refused while an image edit is pending; drop the file again once the edit finishes.

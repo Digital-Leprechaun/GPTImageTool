@@ -12,7 +12,7 @@ $files = @('package.json','package-lock.json','README.md','INSTALL.md','LICENSE'
 foreach ($folder in @('lib','web','skills','scripts','.github')) {
     $files += Get-ChildItem -LiteralPath (Join-Path $project $folder) -Recurse -File | ForEach-Object { $_.FullName.Substring($project.Length + 1) }
 }
-$files += 'tests/images.test.mjs', 'THIRD_PARTY_NOTICES.txt', '.gitattributes', 'UPGRADE.md'
+$files += 'tests/images.test.mjs', 'tests/fence-ui.test.mjs', 'THIRD_PARTY_NOTICES.txt', '.gitattributes', 'UPGRADE.md'
 $stream = [IO.File]::Open($archivePath, [IO.FileMode]::Create)
 $zip = [IO.Compression.ZipArchive]::new($stream, [IO.Compression.ZipArchiveMode]::Create)
 try {

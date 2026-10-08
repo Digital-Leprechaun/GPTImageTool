@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-10-08
+## 0.1.5 — 2026-10-08
 
 - Add Fence selections: click polygon vertices and close at the first point to select the filled interior.
 - Cancel unfinished fences with Esc or Ctrl-Z; preserve all pixels outside brush and fence selections.
