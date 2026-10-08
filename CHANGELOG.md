@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-08
+
+- Add Fence selections: click polygon vertices and close at the first point to select the filled interior.
+- Cancel unfinished fences with Esc or Ctrl-Z; preserve all pixels outside brush and fence selections.
+- Open Image Markup in the sidebar by default and reuse it after edits; restore before/after comparison when reopening saved results.
+- Improve inline edit handoff and add tests for fence controls, selection masks, and legacy brush compatibility.
+
 ## 0.1.4 — 2026-10-07
 
 - Include upgrade and rollback instructions that preserve image history and marketplace paths.

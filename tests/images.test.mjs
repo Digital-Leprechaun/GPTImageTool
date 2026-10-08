@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import sharp from 'sharp';
-import { buildReferences, compositeSelection } from '../lib/images.mjs';
+import { buildReferences, compositeSelection, requestSchema } from '../lib/images.mjs';
 
 test('finishing an edit keeps every unpainted RGBA pixel exactly unchanged', async () => {
   const width=41,height=31, raw=Buffer.alloc(width*height*4);
@@ -34,4 +34,27 @@ test('candidate dimensions must match; no silent stretching',async()=>{
   const candidate=await sharp({create:{width:31,height:20,channels:4,background:'#fff'}}).png().toBuffer();
   const refs=await buildReferences(source,[{color:'blue',width:.1,points:[[.4,.4]]}]);
   await assert.rejects(compositeSelection(source,candidate,refs.mask),/Dimensions differ/);
+});
+
+test('a filled concave fence selects its interior but excludes its notch and outside pixels',async()=>{
+  const source=await sharp({create:{width:100,height:100,channels:4,background:'#444444'}}).png().toBuffer();
+  const candidate=await sharp({create:{width:100,height:100,channels:4,background:'#ff0000'}}).png().toBuffer();
+  const refs=await buildReferences(source,[{kind:'fence',color:'blue',width:.001,points:[[.2,.2],[.8,.2],[.8,.4],[.4,.4],[.4,.8],[.2,.8]]}]);
+  const mask=await sharp(refs.mask).greyscale().raw().toBuffer();
+  assert.equal(mask[30*100+30],255);
+  assert.equal(mask[60*100+30],255);
+  assert.equal(mask[60*100+60],0);
+  assert.equal(mask[10*100+10],0);
+  const original=await sharp(source).raw().toBuffer();
+  const edited=await sharp(candidate).raw().toBuffer();
+  const output=await sharp(await compositeSelection(source,candidate,refs.mask)).raw().toBuffer();
+  for(let i=0;i<100*100;i++)assert.deepEqual(output.subarray(i*4,i*4+4),(mask[i]?edited:original).subarray(i*4,i*4+4));
+});
+
+test('request schema preserves fence type, accepts legacy brush strokes, and rejects unfinished fences',()=>{
+  const base={requestId:'00000000-0000-4000-8000-000000000001',name:'image.png',source:'image',prompt:'edit'};
+  const stroke={color:'yellow',width:.04,points:[[.2,.2],[.8,.2],[.5,.8]]};
+  assert.equal(requestSchema.parse({...base,strokes:[{...stroke,kind:'fence'}]}).strokes[0].kind,'fence');
+  assert.equal(requestSchema.parse({...base,strokes:[stroke]}).strokes[0].kind,undefined);
+  assert.throws(()=>requestSchema.parse({...base,strokes:[{...stroke,kind:'fence',points:[[.2,.2],[.8,.2]]}]}));
 });

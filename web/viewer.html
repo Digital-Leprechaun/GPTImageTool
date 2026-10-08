@@ -5,7 +5,7 @@
 <main>
   <header><div class="brand"><img class="brand-logo" src="LOGO_DATA_URI" alt="Asset Pack Games"><div><span class="eyebrow">GPT IMAGE TOOL</span><h1>Image markup</h1></div></div><div class="header-actions"><a id="download" class="button" aria-disabled="true" tabindex="-1">Download</a><label class="button">Open image<input id="open" type="file" accept="image/png,image/jpeg,image/webp" hidden></label></div></header>
   <div class="toolbar" aria-label="Markup tools">
-    <button id="draw" aria-pressed="true">Highlight</button><button id="pan" aria-pressed="false">Pan</button>
+    <button id="draw" aria-pressed="true">Highlight</button><button id="fence" aria-pressed="false">Fence</button><button id="pan" aria-pressed="false">Pan</button>
     <span class="separator"></span>
     <div class="colors" aria-label="Highlight color">
       <button data-color="yellow" aria-label="Yellow highlighter" aria-pressed="true" style="--swatch:#ffd34f"></button>
@@ -21,7 +21,7 @@
     <div id="stage"><img id="before-image" alt="Image before the last edit" draggable="false" hidden><img id="image" alt="Image to edit" draggable="false"><div id="comparison-divider" hidden></div><svg id="marks" xmlns="http://www.w3.org/2000/svg" aria-label="Highlighted edit regions"></svg></div>
     <div id="empty"><span class="empty-icon">▧</span><h2>Make the next edit precise.</h2><p>Drop an image here or use Open image,<br>paint the areas to change, and describe the edit below.</p><p class="hint">Zoom with the wheel · Hold Space to pan</p></div>
   </section>
-  <div class="image-info"><span id="filename">No image open</span><span id="summary">Painted areas define the edit boundary.</span></div>
+  <div class="image-info"><span id="filename">No image open</span><span id="summary">Highlights define the edit boundary.</span></div>
   <div id="comparison" hidden>
     <div class="comparison-labels"><span>Before last edit</span><output id="comparison-value">100% edited image</output><span>After edit</span></div>
     <input id="comparison-slider" type="range" min="0" max="100" value="100" aria-label="Before and after comparison" aria-describedby="comparison-help">

@@ -14,9 +14,11 @@ To create a friend-testing ZIP from source, run npm ci, npm run build, then powe
 
 Open an image → highlight yellow/red/blue/green regions → enter instructions → **Submit edits** → the same chat receives the source, marked reference, and instructions → the chat generates an edit and calls `finish_markup_edit` → the open viewer automatically loads the result for another pass.
 
+The sidebar is the default. Use **Highlight** to paint or **Fence** to click polygon vertices. Click back on the first point after at least three points to fill the entire fence in the current color. Ctrl-Z or Esc cancels an unfinished fence; Undo removes a completed highlight.
+
 After an edit returns, a Before/After slider reveals the edited image from left to right over its exact previous snapshot. Both layers share zoom and pan. Starting a new highlight restores the full edited view. Download in the top menu saves the current image without highlights or the comparison divider. Each completed edit compares against its own source, so repeated passes compare the latest two versions. Reopening a saved `data/requests/<UUID>/result-*.png` also restores that comparison.
 
-The finishing step preserves every decoded RGBA pixel outside the painted selection. GPT Image masks are guidance rather than a strict boundary, so finishing composites through a binary stroke mask. Colored strokes are references, never artwork. Masks cover painted strokes, including their antialiased edges, and exclude unpainted enclosed interiors. Source snapshots are normalized to sRGB PNG; byte-identical preservation refers to those normalized pixels, not original JPEG file bytes or metadata.
+The finishing step preserves every decoded RGBA pixel outside the highlighted selection. GPT Image masks are guidance rather than a strict boundary, so finishing composites through a binary selection mask. Colored highlights are references, never artwork. Brush masks cover painted strokes, including their antialiased edges, and exclude unpainted enclosed interiors. Completed fences select their filled polygon interiors. Source snapshots are normalized to sRGB PNG; byte-identical preservation refers to those normalized pixels, not original JPEG file bytes or metadata.
 
 ## Run the local viewer
 
@@ -49,7 +51,7 @@ The HTTP server binds only to loopback and is for local testing. ChatGPT cloud c
 npm.cmd test
 ```
 
-Tests check exact preservation of unpainted pixels, ring interiors, and rejection of mismatched candidate dimensions.
+Tests check exact preservation of unselected pixels, brush ring interiors, filled fence masks, fence closure and cancellation, and rejection of mismatched candidate dimensions.
 
 ## Official references
 
